@@ -15,7 +15,8 @@ load_dotenv()
 # Modelo pode ser colocado na variável de ambiente MODELO no arquivo .env
 MODELO = os.getenv("MODELO", "gemini-2.0-flash-preview-image-generation")
 
-# O Gemini só possui um modelo de imagem com requisições gratuitas
+# O Gemini só possui um modelo de imagem com requisições gratuitas, que é o gemini-2.0-flash-preview-image-generation
+# Os outros modelos (Imagen, Gemini-Flash-Image e afins) são pagos e requerem configuração adicional de faturamento.
 
 client = genai.Client()
 
@@ -41,6 +42,7 @@ def gerar_carro_com_placa(modelo_carro, placa):
 def alterar_placa_de_carro_usando_imagem_base(caminho_imagem, placa):
     imagem = Image.open(caminho_imagem)
 
+    ## Prompts em inglês costumam ter resultados melhores.
     prompt = f"""
         Edit the car image by replacing the license plate area with a Mercosul-style plate. Change the license plate to {placa}. 
         Keep the plate size, perspective and reflections matching the original photo. Use the standard Mercosul layout: a thin blue horizontal 
@@ -49,6 +51,7 @@ def alterar_placa_de_carro_usando_imagem_base(caminho_imagem, placa):
 
     response = client.models.generate_content(
         model=MODELO, 
+        # Em contents, você pode passar somente o prompt ou o prompt + a imagem para o modelo usar de base.
         contents=[prompt, imagem],
         config={"response_modalities": ["TEXT", "IMAGE"]}
     )

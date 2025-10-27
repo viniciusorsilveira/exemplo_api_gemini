@@ -47,10 +47,6 @@ config={"response_modalities": ["TEXT", "IMAGE"]}
 - `Pillow`: Manipulação de imagens
 - `python-dotenv`: Carregamento de variáveis de ambiente
 
-### Formato de Placas
-
-O projeto está configurado para trabalhar com placas no padrão Mercosul (formato brasileiro), mas pode ser adaptado para outros padrões.
-
 ## Como gerar uma chave de API
 
 1. Crie um projeto no Google Cloud (https://console.cloud.google.com/) e **não** ative o Billing (Faturamento)
